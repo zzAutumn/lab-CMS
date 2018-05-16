@@ -7,7 +7,7 @@ const morgan = require('morgan')
 //  build express app
 const app = express()
 //  log generator
-app.use(morgan('combine'))
+app.use(morgan('combined'))
 //  process JSON data
 app.use(bodyParser.json())
 //  allow any host or client to access
