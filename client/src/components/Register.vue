@@ -1,36 +1,38 @@
 <template>
-  <div>
-    <h1>Register</h1>
-    <!--
-      <p>
-      <label for="username">name: </label>
-      <input type="text" name="username" placeholder="name">
-    </p>
-    -->
-    <p>
-      <label for="email">email: </label>
-      <input
-        type="email"
-        name="email"
-        v-model="email"
-        placeholder="email"
-      />
-    </p>
-    <p>
-      <label for="password">password: </label>
-      <input
-        type="password"
-        name="password"
-        v-model="password"
-        placeholder="password"
-      />
-    </p>
-    <div class="error">
-      <button v-on:click="register">
-          Register
-      </button>
-    </div>
-  </div>
+  <v-layout>
+    <v-flex xs6 offset-xs3>
+      <div class="white elevation-2">
+        <v-toolbar flat dense class="cyan" dark>
+          <v-toolbar-title>Register</v-toolbar-title>
+        </v-toolbar>
+
+        <div class="pl-4 pr-4 pt-2 pb-2">
+          <p>
+            <label for="email">email: </label>
+            <input
+              type="email"
+              name="email"
+              v-model="email"
+              placeholder="email"
+            />
+          </p>
+          <p>
+            <label for="password">password: </label>
+            <input
+              type="password"
+              name="password"
+              v-model="password"
+              placeholder="password"
+            />
+          </p>
+          <div class="error" v-html="error">
+          </div>
+          <v-btn class="sign" @click="register">Register</v-btn>    
+        </div>        
+      </div>
+    </v-flex>
+  </v-layout>
+  
 </template>
 
 <script>
@@ -61,7 +63,7 @@ export default {
         password: this.password
       })
      } catch (error) {
-       this.error = error.response.data
+       this.error = error.response.data.error
      }
     }
   }
@@ -69,5 +71,7 @@ export default {
 </script>
 
 <style scoped>
-
+.error{
+  color: red;
+}
 </style>
