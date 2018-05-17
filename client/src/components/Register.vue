@@ -25,9 +25,11 @@
         placeholder="password"
       />
     </p>
-    <button v-on:click="register">
-      Register
-    </button>
+    <div class="error">
+      <button v-on:click="register">
+          Register
+      </button>
+    </div>
   </div>
 </template>
 
@@ -36,8 +38,9 @@ import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
     return {
-      email: 'abc', //  这里的数据双向绑定，对应template中的v-model
-      password: '123'
+      email: '', //  这里的数据双向绑定，对应template中的v-model
+      password: '',
+      error: null
     }
   },
   /* watch: {
@@ -52,11 +55,14 @@ export default {
   }, */
   methods: {
     async register () {
-      await AuthenticationService.register({
+      try {
+        await AuthenticationService.register({
         email: this.email,
         password: this.password
       })
-      
+     } catch (error) {
+       this.error = error.response.data
+     }
     }
   }
 }
