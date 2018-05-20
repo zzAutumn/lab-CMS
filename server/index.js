@@ -21,8 +21,12 @@ db.on('connected', function () {
 })
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
+//  userRoutes
 const routes = require('./routes/userListRoutes')
 routes(app)
+//  inventoryRoutes
+const inventoryRoutes = require('./routes/inventoryListRoutes')
+inventoryRoutes(app)
 
 const testRoutes = require('./routes/test')
 testRoutes(app)

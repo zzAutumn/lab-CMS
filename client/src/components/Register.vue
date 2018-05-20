@@ -7,27 +7,31 @@
         </v-toolbar>
 
         <div class="pl-4 pr-4 pt-2 pb-2">
-          <v-text-field
+          <form 
+            name="tab-tracker-form"
+            autocomplete="on"
+          >
+            <v-text-field
             v-model="name"
             label="Name: "
             :rules="nameRules"
           ></v-text-field>
-          <v-text-field
+            <v-text-field
             v-model="email"
             label="E-mail: "
             :rules="emailRules"
           ></v-text-field>
-          <v-text-field
+            <v-text-field
             type="password"
             v-model="password"
             label="Password: "
+            autocomplete="new-password"
             :rules="passRules"
           ></v-text-field>
-          </div>
-          <v-btn class="sign" @click="register">Register</v-btn>    
-          <v-btn class="sign" @click="test">test</v-btn>              
-        </div>        
-      </div>
+            <v-btn class="sign" @click="register">Register</v-btn>    
+          </form>          
+        </div>              
+      </div>        
     </v-flex>
   </v-layout>
   
@@ -76,19 +80,15 @@ export default {
     postData.append('name', this.name);
     postData.append('email', this.email);
     postData.append('password', this.password);
-      /* name: this.name,
-      email: this.email,
-      password: this.password */
     axios.post('http://localhost:8081/register', postData)
       .then(response => {
         if (response.status === 200) {
-          console.log('ok....')
-           
+          //  console.log('ok....')
+          const token = response.data.token
+          this.$store.dispatch('setToken', token)
+          this.$store.dispatch('setUser', response.data.user) 
         }
       })
-  },
-  test () {
-    console.log(new Api())
   }
 }
 

@@ -23,6 +23,7 @@ export default {
 </script>
 
 <style>
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -33,5 +34,8 @@ export default {
 }
 .container{
   margin-top: 20px;
+}
+.navigation-drawer{
+  margin-top: 60px;
 }
 </style>

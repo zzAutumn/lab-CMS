@@ -22,8 +22,7 @@
               required
             />
             <small>*indicates required field</small>
-            <div class="error" v-html="error">
-            </div>
+            <div class="error" v-html="error"></div>
             <br>
             <v-btn class="sign" @click="login">Log In</v-btn>
           </v-card-text>
@@ -35,6 +34,7 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -46,9 +46,18 @@ export default {
   methods: {
     async login () {
       try {
-        await AuthenticationService.login({
-        email: this.email,
-        password: this.password
+        const postData = new URLSearchParams()
+        postData.append('email', this.email)
+        postData.append('password', this.password)
+        axios.post('http://localhost:8081/login', postData)
+          .then(response => {
+          if (response.status === 200) {
+          //  console.log(response.data.token)
+          const token = response.data.token
+          this.$store.dispatch('setToken', token)
+          this.$store.dispatch('setUser', response.data.user)
+           
+        }
       })
      } catch (error) {
        this.error = error.response.data.error
